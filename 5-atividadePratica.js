@@ -1,10 +1,10 @@
 const fs = require('fs');
 
-const date = new Date();
+const date = JSON.stringify(new Date);
 console.log(date);
 
 // Escrevendo a data em um arquivo
-fs.writeFile('./data/dataHora.txt', date.toString(), (err) => {
+fs.writeFile('./data/dataHora.txt', date, (err) => {
     if (err) {
         return console.log('Erro:', err);
     }

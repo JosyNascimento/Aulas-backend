@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 
-class ManagerUser {
+class ManagerUsers {
     constructor(path) {
         this.path = path;
     }
@@ -17,8 +17,10 @@ class ManagerUser {
     }
 
     consultaUsuario = async () => {
-        return await this.#lerArquivo();
+        const result = await this.#lerArquivo();
+        return result
     }
+
 
     criarUsuario = async (nome, sobrenome, idade, curso) => {
         let resultado = await this.#lerArquivo();
@@ -27,7 +29,7 @@ class ManagerUser {
             nome,
             sobrenome,
             idade,
-            curso // Corrigido para "curso"
+            curso 
         };
         resultado.push(user);
         await this.#gravarUsuario(resultado);
@@ -35,14 +37,16 @@ class ManagerUser {
 }
 
 const main = async () => {
-    const userManager = new ManagerUser("./data/usuarios.json");
-    
-    // Exemplo de como criar um novo usuário
+    const userManager = new ManagerUsers("./data/usuarios.json");
     await userManager.criarUsuario("Josy", "Nascimento", 25, "Programação");
 
-    // Consultando usuários
-    const usuarios = await userManager.consultaUsuario();
-    console.log(usuarios);
-};
+    
+    const user = await userManager.consultaUsuario();  // Consultando usuários
+    console.log(user);
+   
+     // Exemplo de como criar um novo usuário
+
+    
+}
 
 main().catch(err => console.error(err));
